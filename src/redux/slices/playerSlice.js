@@ -44,8 +44,15 @@ const playerSlice = createSlice({
         state.isMuted = true;
       }
     },
+    setPlaybackRate: (state, action) => {
+      const allowedRates = [0.5, 0.75, 1.0, 1.25, 1.5];
+      if (allowedRates.includes(action.payload)) {
+        state.playbackRate = action.payload;
+      }
+    },
   },
 });
 
-export const { playPause, setTime, changeVolume, toggleMute } = playerSlice.actions;
+export const { playPause, setTime, changeVolume, toggleMute, setPlaybackRate } =
+  playerSlice.actions;
 export default playerSlice.reducer;
