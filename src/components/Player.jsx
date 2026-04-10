@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { playPause, setTime, changeVolume, toggleMute, setPlaybackRate } from "../redux/slices/playerSlice";
+import { playPause, setTime, changeVolume, toggleMute, setPlaybackRate, nextRepeatMode } from "../redux/slices/playerSlice";
 
 function Player() {
   const isPlaying = useSelector((state) => state.player.isPlaying);
@@ -8,6 +8,7 @@ function Player() {
   const volume = useSelector((state) => state.player.volume);
   const isMuted = useSelector((state) => state.player.isMuted);
   const playbackRate = useSelector((state) => state.player.playbackRate);
+  const repeatMode = useSelector((state) => state.player.repeatMode);
   const dispatch = useDispatch();
 
   return (
@@ -43,6 +44,12 @@ function Player() {
           <option value={1.25}>1.25x</option>
           <option value={1.5}>1.5x</option>
         </select>
+      </div>
+      <div className="flex items-center gap-4">
+        <label>Повтор:</label>
+        <button className="button-primary" onClick={() => dispatch(nextRepeatMode())}>
+          {repeatMode === "none" ? "Нет" : repeatMode === "one" ? "Один" : "Все"}
+        </button>
       </div>
     </div>
   );

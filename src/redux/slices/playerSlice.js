@@ -50,9 +50,14 @@ const playerSlice = createSlice({
         state.playbackRate = action.payload;
       }
     },
+    nextRepeatMode: (state) => {
+      const modes = ['none', 'one', 'all'];
+      const currentIndex = modes.indexOf(state.repeatMode);
+      state.repeatMode = modes[(currentIndex + 1) % modes.length];
+    },
   },
 });
 
-export const { playPause, setTime, changeVolume, toggleMute, setPlaybackRate } =
+export const { playPause, setTime, changeVolume, toggleMute, setPlaybackRate, nextRepeatMode } =
   playerSlice.actions;
 export default playerSlice.reducer;
