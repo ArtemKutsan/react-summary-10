@@ -18,8 +18,13 @@ const playerSlice = createSlice({
     playPause: (state) => {
       state.isPlaying = !state.isPlaying;
     },
+    setTime: (state, action) => {
+      if (action.payload < 0) state.currentTime = 0;
+      else if (action.payload > state.maxTime) state.currentTime = state.maxTime;
+      else state.currentTime = action.payload;
+    },
   },
 });
 
-export const { playPause } = playerSlice.actions;
+export const { playPause, setTime } = playerSlice.actions;
 export default playerSlice.reducer;
