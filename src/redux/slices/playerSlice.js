@@ -14,8 +14,12 @@ const initialState = {
 const playerSlice = createSlice({
   name: 'player',
   initialState,
-  reducers: {},
+  reducers: {
+    playPause: (state) => {
+      state.isPlaying = !state.isPlaying;
+    },
+  },
 });
 
-export const {} = playerSlice.actions;
+export const { playPause } = playerSlice.actions;
 export default playerSlice.reducer;
