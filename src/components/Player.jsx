@@ -21,22 +21,17 @@ function Player() {
   const dispatch = useDispatch();
 
   return (
-    <div className="flex flex-col gap-2 rounded-lg border border-gray-300 bg-white p-4">
-      {/* Строка 1: Play/Pause + статус */}
-      <div className="flex items-center justify-between">
+    <div className="rounded-xl border border-gray-200 bg-linear-to-b from-white to-gray-100 p-4">
+      {/* Строка 1: Play/Pause + прогресс-бар + время */}
+      <div className="flex items-center gap-4">
         <Button type="primary" shape="circle" icon={isPlaying ? <PauseCircleOutlined /> : <PlayCircleOutlined />} onClick={() => dispatch(playPause())} />
-        <span className="text-sm text-gray-600">{isPlaying ? "Воспроизведение" : "Остановлено"}</span>
-      </div>
-
-      {/* Строка 2: Прогресс-бар */}
-      <div className="flex items-center gap-3">
         <span className="w-10 text-right text-sm">{formatTime(currentTime)}</span>
         <Slider className="flex-1" min={0} max={maxTime} value={currentTime} onChange={(value) => dispatch(setTime(value))} tooltip={{ formatter: (value) => formatTime(value) }} />
         <span className="w-10 text-sm">{formatTime(maxTime)}</span>
       </div>
 
-      {/* Строка 3: Громкость + скорость + повтор + перемотка */}
-      <div className="flex flex-wrap items-center gap-4">
+      {/* Строка 2: Громкость + скорость + повтор + перемотка */}
+      <div className="mt-2 flex flex-wrap items-center gap-4">
         {/* Громкость */}
         <div className="flex items-center gap-2">
           <Slider className="w-20" min={0} max={100} value={volume} onChange={(value) => dispatch(changeVolume(value))} tooltip={{ formatter: (value) => `${value}%` }} />
