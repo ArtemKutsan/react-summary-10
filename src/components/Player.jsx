@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { playPause, setTime, changeVolume } from "../redux/slices/playerSlice";
+import { playPause, setTime, changeVolume, toggleMute } from "../redux/slices/playerSlice";
 
 function Player() {
   const isPlaying = useSelector((state) => state.player.isPlaying);
@@ -29,6 +29,9 @@ function Player() {
         <span>
           {volume}% {isMuted && "(muted)"}
         </span>
+        <button className="button-primary" onClick={() => dispatch(toggleMute())}>
+          {isMuted ? "Unmute" : "Mute"}
+        </button>
       </div>
     </div>
   );
