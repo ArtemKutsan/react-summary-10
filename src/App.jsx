@@ -1,14 +1,8 @@
 import "./App.css";
 import { useSelector, useDispatch } from "react-redux";
-import { reset } from "./redux/slices/userSlice";
 
 function App() {
   const dispatch = useDispatch();
-  const userData = useSelector((state) => state.users.data);
-
-  function logout() {
-    dispatch(reset());
-  }
 
   return (
     <main className="py-8">
