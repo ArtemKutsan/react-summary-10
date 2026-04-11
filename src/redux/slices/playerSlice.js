@@ -9,7 +9,9 @@ const initialState = {
   previousVolume: 50,
   playbackRate: 1.0,
   repeatMode: "none",
-  src: "https://www.w3schools.com/html/mov_bbb.mp4",
+  // src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+  // src: "https://archive.org/download/tvtunes_20188/Tron Legacy - 03 - The Son of Flynn.mp3",
+  src: "https://juan-carlos.info/wp-content/uploads/sites/2/2021/11/Rick-Astley-Never-Gonna-Give-You-Up-Official-Music-Video.mp4",
 };
 
 const playerSlice = createSlice({
@@ -18,6 +20,9 @@ const playerSlice = createSlice({
   reducers: {
     playPause: (state) => {
       state.isPlaying = !state.isPlaying;
+    },
+    setIsPlaying: (state, action) => {
+      state.isPlaying = action.payload;
     },
     setTime: (state, action) => {
       if (action.payload < 0) state.currentTime = 0;
@@ -68,5 +73,5 @@ const playerSlice = createSlice({
   },
 });
 
-export const { playPause, setTime, changeVolume, toggleMute, setPlaybackRate, nextRepeatMode, seekForward, seekBackward, setMaxTime } = playerSlice.actions;
+export const { playPause, setIsPlaying, setTime, changeVolume, toggleMute, setPlaybackRate, nextRepeatMode, seekForward, seekBackward, setMaxTime } = playerSlice.actions;
 export default playerSlice.reducer;

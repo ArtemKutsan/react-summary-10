@@ -9,9 +9,9 @@ function formatTime(seconds) {
 function ProgressBar({ currentTime, maxTime, onTimeChange }) {
   return (
     <>
-      <span className="w-10 text-right text-sm">{formatTime(currentTime)}</span>
+      <span className="text-right text-sm">{formatTime(currentTime)}</span>
       <Slider className="flex-1" min={0} max={maxTime} value={currentTime} onChange={onTimeChange} tooltip={{ formatter: (value) => formatTime(value) }} />
-      <span className="w-10 text-sm">{formatTime(maxTime)}</span>
+      <span className="text-sm">{formatTime(maxTime)}</span>
     </>
   );
 }
