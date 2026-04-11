@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isPlaying: false,
@@ -8,11 +8,12 @@ const initialState = {
   isMuted: false,
   previousVolume: 50,
   playbackRate: 1.0,
-  repeatMode: 'none',
+  repeatMode: "none",
+  src: "https://www.w3schools.com/html/mov_bbb.mp4",
 };
 
 const playerSlice = createSlice({
-  name: 'player',
+  name: "player",
   initialState,
   reducers: {
     playPause: (state) => {
@@ -51,7 +52,7 @@ const playerSlice = createSlice({
       }
     },
     nextRepeatMode: (state) => {
-      const modes = ['none', 'one', 'all'];
+      const modes = ["none", "one", "all"];
       const currentIndex = modes.indexOf(state.repeatMode);
       state.repeatMode = modes[(currentIndex + 1) % modes.length];
     },
@@ -61,17 +62,11 @@ const playerSlice = createSlice({
     seekBackward: (state, action) => {
       state.currentTime = Math.max(state.currentTime - action.payload, 0);
     },
+    setMaxTime: (state, action) => {
+      state.maxTime = action.payload;
+    },
   },
 });
 
-export const {
-  playPause,
-  setTime,
-  changeVolume,
-  toggleMute,
-  setPlaybackRate,
-  nextRepeatMode,
-  seekForward,
-  seekBackward,
-} = playerSlice.actions;
+export const { playPause, setTime, changeVolume, toggleMute, setPlaybackRate, nextRepeatMode, seekForward, seekBackward, setMaxTime } = playerSlice.actions;
 export default playerSlice.reducer;
