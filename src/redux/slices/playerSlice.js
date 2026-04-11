@@ -9,6 +9,9 @@ const initialState = {
   previousVolume: 50,
   playbackRate: 1.0,
   repeatMode: 'none',
+  // src: 'https://www.youtube.com/watch?v=mqgEYRtWMJU',
+  // src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+  src: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
 };
 
 const playerSlice = createSlice({
@@ -17,6 +20,9 @@ const playerSlice = createSlice({
   reducers: {
     playPause: (state) => {
       state.isPlaying = !state.isPlaying;
+    },
+    setIsPlaying: (state, action) => {
+      state.isPlaying = action.payload;
     },
     setTime: (state, action) => {
       if (action.payload < 0) state.currentTime = 0;
@@ -28,9 +34,7 @@ const playerSlice = createSlice({
       else if (action.payload > 100) state.volume = 100;
       else state.volume = action.payload;
 
-      if (state.volume === 0) {
-        state.isMuted = true;
-      } else if (state.isMuted) {
+      if (state.volume > 0) {
         state.isMuted = false;
       }
     },
@@ -61,11 +65,15 @@ const playerSlice = createSlice({
     seekBackward: (state, action) => {
       state.currentTime = Math.max(state.currentTime - action.payload, 0);
     },
+    setMaxTime: (state, action) => {
+      state.maxTime = action.payload;
+    },
   },
 });
 
 export const {
   playPause,
+  setIsPlaying,
   setTime,
   changeVolume,
   toggleMute,
@@ -73,5 +81,6 @@ export const {
   nextRepeatMode,
   seekForward,
   seekBackward,
+  setMaxTime,
 } = playerSlice.actions;
 export default playerSlice.reducer;

@@ -1,11 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
+import AudioPlayer from "./AudioPlayer";
 import PlayButton from "./PlayButton";
 import ProgressBar from "./ProgressBar";
 import VolumeControl from "./VolumeControl";
 import PlaybackRateSelector from "./PlaybackRateSelector";
 import RepeatButton from "./RepeatButton";
 import SeekButtons from "./SeekButtons";
-import { playPause, setTime, changeVolume, toggleMute, setPlaybackRate, nextRepeatMode, seekForward, seekBackward } from "../../redux/slices/playerSlice";
+import { playPause, changeVolume, toggleMute, setPlaybackRate, nextRepeatMode } from "../../redux/slices/playerSlice";
 
 function Player() {
   const isPlaying = useSelector((state) => state.player.isPlaying);
@@ -19,35 +20,22 @@ function Player() {
   const dispatch = useDispatch();
 
   return (
-    <div className="rounded-xl border border-gray-200 bg-linear-to-b from-white to-blue-50 p-4">
-      {/* Строка 1: Play/Pause + прогресс-бар + время */}
-      <div className="flex items-center gap-4">
-        <PlayButton isPlaying={isPlaying} onClick={() => dispatch(playPause())} />
-        <ProgressBar currentTime={currentTime} maxTime={maxTime} onTimeChange={(value) => dispatch(setTime(value))} />
-      </div>
+    <div className="overflow-hidden rounded-3xl">
+      <AudioPlayer>
+        <div className="space-y-2 bg-linear-to-b from-purple-100 to-indigo-100 p-4">
+          {/* Строка 1: Прогресс-бар + время */}
+          <ProgressBar currentTime={currentTime} maxTime={maxTime} />
 
-      {/* Строка 2: Громкость + скорость + повтор + перемотка */}
-      <div className="mt-2 flex flex-wrap items-center gap-4">
-        <div className="flex items-center gap-2">
-          <VolumeControl volume={volume} isMuted={isMuted} onVolumeChange={(value) => dispatch(changeVolume(value))} onToggleMute={() => dispatch(toggleMute())} />
+          {/* Строка 2: Play/Pause + громкость + скорость + повтор + перемотка */}
+          <div className="flex flex-wrap items-center gap-2">
+            <PlayButton isPlaying={isPlaying} onClick={() => dispatch(playPause())} />
+            <SeekButtons seekTime={15} />
+            <VolumeControl volume={volume} isMuted={isMuted} onVolumeChange={(value) => dispatch(changeVolume(value))} onToggleMute={() => dispatch(toggleMute())} />
+            <PlaybackRateSelector playbackRate={playbackRate} onPlaybackRateChange={(value) => dispatch(setPlaybackRate(value))} />
+            <RepeatButton repeatMode={repeatMode} onNextRepeatMode={() => dispatch(nextRepeatMode())} />
+          </div>
         </div>
-
-        <span className="text-gray-200">|</span>
-
-        <PlaybackRateSelector playbackRate={playbackRate} onPlaybackRateChange={(value) => dispatch(setPlaybackRate(value))} />
-
-        <span className="text-gray-200">|</span>
-
-        <div className="flex items-center gap-2">
-          <RepeatButton repeatMode={repeatMode} onNextRepeatMode={() => dispatch(nextRepeatMode())} />
-        </div>
-
-        <span className="text-gray-200">|</span>
-
-        <div className="flex items-center gap-2">
-          <SeekButtons onSeekBackward={() => dispatch(seekBackward(15))} onSeekForward={() => dispatch(seekForward(15))} />
-        </div>
-      </div>
+      </AudioPlayer>
     </div>
   );
 }

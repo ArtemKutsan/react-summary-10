@@ -1,4 +1,5 @@
 import { Slider } from "antd";
+import { usePlayerSeek } from "./AudioPlayer";
 
 function formatTime(seconds) {
   const mins = Math.floor(seconds / 60);
@@ -6,13 +7,15 @@ function formatTime(seconds) {
   return `${mins}:${secs.toString().padStart(2, "0")}`;
 }
 
-function ProgressBar({ currentTime, maxTime, onTimeChange }) {
+function ProgressBar({ currentTime, maxTime }) {
+  const seekTo = usePlayerSeek();
+
   return (
-    <>
-      <span className="w-10 text-right text-sm">{formatTime(currentTime)}</span>
-      <Slider className="flex-1" min={0} max={maxTime} value={currentTime} onChange={onTimeChange} tooltip={{ formatter: (value) => formatTime(value) }} />
-      <span className="w-10 text-sm">{formatTime(maxTime)}</span>
-    </>
+    <div className="flex items-center gap-2">
+      <span className="ml-1 text-right text-sm">{formatTime(currentTime)}</span>
+      <Slider className="flex-1" min={0} max={maxTime} value={currentTime} onChange={seekTo} tooltip={{ formatter: (value) => formatTime(value) }} />
+      <span className="mr-1 text-sm">{formatTime(maxTime)}</span>
+    </div>
   );
 }
 
