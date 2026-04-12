@@ -20,21 +20,23 @@ function Player() {
   const dispatch = useDispatch();
 
   return (
-    <div className="overflow-hidden rounded-3xl">
+    <div className="relative overflow-hidden rounded-2xl bg-linear-to-br from-indigo-900/95 via-purple-900/90 to-slate-900/95 shadow-2xl shadow-indigo-500/20 backdrop-blur-3xl ring-1 ring-white/10">
+      <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-purple-500/20 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-indigo-500/20 blur-3xl" />
       <MediaPlayer>
-        <div className="space-y-2 bg-linear-to-b from-purple-100 to-indigo-100 p-4">
+        <div className="relative space-y-4 p-5">
           {/* Строка 1: Прогресс-бар + время */}
-          <div className="mx-1 flex flex-wrap items-center gap-2">
+          <div className="mx-1 flex items-center gap-3">
             <ProgressBar currentTime={currentTime} maxTime={maxTime} onTimeChange={(value) => dispatch(setTime(value))} />
           </div>
           {/* Строка 2: Play/Pause + громкость + скорость + повтор + перемотка */}
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <div className="flex grow items-center gap-2">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-3">
               <PlayButton isPlaying={isPlaying} onClick={() => dispatch(playPause())} />
               <SeekButtons onSeekBackward={() => dispatch(seekBackward(15))} onSeekForward={() => dispatch(seekForward(15))} />
               <VolumeControl volume={volume} isMuted={isMuted} onVolumeChange={(value) => dispatch(changeVolume(value))} onToggleMute={() => dispatch(toggleMute())} />
             </div>
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex items-center gap-3">
               <PlaybackRateSelector playbackRate={playbackRate} onPlaybackRateChange={(value) => dispatch(setPlaybackRate(value))} />
               <RepeatButton repeatMode={repeatMode} onNextRepeatMode={() => dispatch(nextRepeatMode())} />
             </div>
