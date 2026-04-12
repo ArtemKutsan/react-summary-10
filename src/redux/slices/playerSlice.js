@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   isPlaying: false,
@@ -8,14 +8,14 @@ const initialState = {
   isMuted: false,
   previousVolume: 50,
   playbackRate: 1.0,
-  repeatMode: "none",
+  repeatMode: 'none',
   // src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-  // src: "https://archive.org/download/tvtunes_20188/Tron Legacy - 03 - The Son of Flynn.mp3",
-  src: "https://juan-carlos.info/wp-content/uploads/sites/2/2021/11/Rick-Astley-Never-Gonna-Give-You-Up-Official-Music-Video.mp4",
+  // src: 'https://archive.org/download/tvtunes_20188/Tron Legacy - 03 - The Son of Flynn.mp3',
+  src: 'https://juan-carlos.info/wp-content/uploads/sites/2/2021/11/Rick-Astley-Never-Gonna-Give-You-Up-Official-Music-Video.mp4',
 };
 
 const playerSlice = createSlice({
-  name: "player",
+  name: 'player',
   initialState,
   reducers: {
     playPause: (state) => {
@@ -57,7 +57,7 @@ const playerSlice = createSlice({
       }
     },
     nextRepeatMode: (state) => {
-      const modes = ["none", "one", "all"];
+      const modes = ['none', 'one', 'all'];
       const currentIndex = modes.indexOf(state.repeatMode);
       state.repeatMode = modes[(currentIndex + 1) % modes.length];
     },
@@ -70,8 +70,25 @@ const playerSlice = createSlice({
     setMaxTime: (state, action) => {
       state.maxTime = action.payload;
     },
+    setSrc: (state, action) => {
+      state.src = action.payload;
+      state.isPlaying = false;
+      state.currentTime = 0;
+    },
   },
 });
 
-export const { playPause, setIsPlaying, setTime, changeVolume, toggleMute, setPlaybackRate, nextRepeatMode, seekForward, seekBackward, setMaxTime } = playerSlice.actions;
+export const {
+  playPause,
+  setIsPlaying,
+  setTime,
+  changeVolume,
+  toggleMute,
+  setPlaybackRate,
+  nextRepeatMode,
+  seekForward,
+  seekBackward,
+  setMaxTime,
+  setSrc,
+} = playerSlice.actions;
 export default playerSlice.reducer;
