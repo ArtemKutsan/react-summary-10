@@ -11,7 +11,8 @@ const initialState = {
   repeatMode: 'none',
   // src: 'https://www.youtube.com/watch?v=mqgEYRtWMJU',
   // src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
-  src: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+  // src: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+  src: 'https://www.youtube.com/watch?v=mqgEYRtWMJU',
 };
 
 const playerSlice = createSlice({
