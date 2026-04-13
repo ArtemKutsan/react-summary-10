@@ -25,3 +25,20 @@ dist-ssr
 
 # Шаблонный компонент
 src/components/Template/
+# AI Agent Knowledge Base & Infrastructure
+.agent/
+docs/
+AGENTS.md
+
+# AI Tool State & Cache
+.gemini/
+.qwen/
+.codex/
+.kimi/
+.cline/
+.anthropic/
+.openai/
+.cody/
+.cursor/
+.windsurf/
+.idx/
