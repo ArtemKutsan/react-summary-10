@@ -68,6 +68,11 @@ const playerSlice = createSlice({
     setMaxTime: (state, action) => {
       state.maxTime = action.payload;
     },
+    setSrc: (state, action) => {
+      state.src = action.payload;
+      state.isPlaying = false;
+      state.currentTime = 0;
+    },
   },
 });
 
@@ -82,5 +87,6 @@ export const {
   seekForward,
   seekBackward,
   setMaxTime,
+  setSrc,
 } = playerSlice.actions;
 export default playerSlice.reducer;
